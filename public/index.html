@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Restaurante App</title>
+  <script src="./main.js"></script>
+  <script>
+    function limpiarCampos() {
+      document.getElementById("primerPlato").value = "";
+      document.getElementById("segundoPlato").value = "";
+      document.getElementById("nMesa").value = "";
+    }
+  </script>
+</head>
+<body onload="comands()">
+  <h1>Restaurante App</h1>
+  
+  <form id="orderForm">
+    <label for="primerPlato">Primer Plato:</label>
+    <input type="text" id="primerPlato" name="primerPlato" required>
+    <br>
+
+    <label for="segundoPlato">Segundo Plato:</label>
+    <input type="text" id="segundoPlato" name="segundoPlato" required>
+    <br>
+
+    <label for="nMesa">Número de Mesa:</label>
+    <input type="text" id="nMesa" name="nMesa" required>
+    <br>
+
+    <button type="button" onClick="nuevaComanda(); limpiarCampos();">Enviar Pedido</button>
+    <div id="data"></div>
+  </form>
+</body>
+</html>
