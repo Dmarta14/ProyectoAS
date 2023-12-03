@@ -1,0 +1,51 @@
+version: "3.8"
+
+services:
+  mysqldb:
+    image: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=ProyectoAS2324
+      - MYSQL_DATABASE=ProyectoAS2324Restaurante
+      - MYSQL_USER=DiegoAS
+      - MYSQL_PASSWORD=ProyectoAS2324
+    ports:
+      - 3310:3306
+    networks:
+      proyectoas_mired:
+        ipv4_address: 10.5.0.4
+    volumes:
+      - ./mysql-data:/var/lib/mysql
+
+  cliente:
+    build: .
+    depends_on:
+      - mysqldb 
+    links:
+      - mysqldb
+    ports:
+      - 4201:4201
+    networks:
+      proyectoas_mired:
+        ipv4_address: 10.5.0.5
+
+  
+  web-httpd:
+    image: httpd
+    volumes:
+      - ./public:/usr/local/apache2/htdocs
+    ports:
+      - 8080:80
+    networks:
+      proyectoas_mired:
+        ipv4_address: 10.5.0.6
+    depends_on:
+      - cliente
+networks:
+  proyectoas_mired:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.5.0.0/16
+          gateway: 10.5.0.1
+
